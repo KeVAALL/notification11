@@ -31,10 +31,25 @@ async function notifyUser(notificationText = "Thank you") {
   // }
   if ("Notification" in window) {
     console.log("In Window");
-    if (
-      Notification["permission"] !== "granted" &&
-      Notification["permission"] !== "denied"
-    ) {
+    // if (
+    //   Notification["permission"] !== "granted" &&
+    //   Notification["permission"] !== "denied"
+    // ) {
+    //   Notification.requestPermission().then((permission) => {
+    //     console.log("Asking..." + permission);
+    //     if (permission === "granted") {
+    //       // const notification =
+    //       new Notification(notificationText);
+    //     }
+    //   });
+    // }
+    if (Notification.permission === "granted") {
+      console.log("Granted");
+      // const notification =
+      new Notification(notificationText);
+    } else if (Notification.permission === "denied") {
+      console.log("Disabled");
+      // await
       Notification.requestPermission().then((permission) => {
         console.log("Asking..." + permission);
         if (permission === "granted") {
@@ -43,22 +58,6 @@ async function notifyUser(notificationText = "Thank you") {
         }
       });
     }
-    // if (Notification.permission === "granted") {
-    //   console.log("Granted");
-    //   // const notification =
-    //   new Notification(notificationText);
-    // } else if (Notification.permission === "denied") {
-    //   console.log("Disabled");
-    //   // await
-    //   Notification.requestPermission();
-    //   .then((permission) => {
-    //   console.log("Asking..." + permission);
-    //   if (permission === "granted") {
-    //     // const notification =
-    //     new Notification(notificationText);
-    //   }
-    // });
-    // }
   }
 }
 
