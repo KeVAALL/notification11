@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -64,7 +64,8 @@ async function notifyUser(notificationText = "Thank you") {
 function App() {
   const [userResponded, setUserResponded] = useState(false);
 
-  document.addEventListener("DOMContentLoaded", function () {
+  // document.addEventListener("DOMContentLoaded", function () {});
+  useEffect(() => {
     if (!Notification) {
       alert(
         "Desktop notifications not available in your browser. Try Chromium."
