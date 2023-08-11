@@ -64,6 +64,17 @@ async function notifyUser(notificationText = "Thank you") {
 function App() {
   const [userResponded, setUserResponded] = useState(false);
 
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!Notification) {
+      alert(
+        "Desktop notifications not available in your browser. Try Chromium."
+      );
+      return;
+    }
+
+    if (Notification.permission !== "granted") notifyUser();
+  });
+
   const enableNotifsAndClose = async () => {
     await notifyUser();
     //   .then(() => {
