@@ -31,28 +31,30 @@ async function notifyUser(notificationText = "Thank you") {
   // }
   if ("Notification" in window) {
     console.log("In Window");
-    // if (
-    //   Notification["permission"] !== "granted" &&
-    //   Notification["permission"] !== "denied"
-    // ) {
-    //   Notification.requestPermission().then((permission) => {
-    //     console.log("Asking..." + permission);
-    //     if (permission === "granted") {
-    //       // const notification =
-    //       new Notification(notificationText);
-    //     }
-    //   });
-    // }
+
     if (Notification.permission === "granted") {
       console.log("Granted");
+
       // const notification =
       new Notification(notificationText);
     } else if (Notification.permission === "denied") {
       console.log("Disabled");
       // await
+
       Notification.requestPermission().then((permission) => {
         console.log("Asking..." + permission);
-        if (permission === "granted") {
+        if (permission === "denied") {
+          // const notification =
+          new Notification(notificationText);
+        }
+      });
+    } else if (Notification.permission === "default") {
+      console.log("Default");
+      // await
+
+      Notification.requestPermission().then((permission) => {
+        console.log("Asking..." + permission);
+        if (permission === "denied") {
           // const notification =
           new Notification(notificationText);
         }
@@ -141,3 +143,14 @@ function App() {
 }
 
 export default App;
+
+// navigator.permissions.query({ name: "notifications" }).then((result) => {
+//   if (result.state === "granted") {
+//     console.log("Granted");
+//   } else if (result.state === "prompt") {
+//     console.log("Prompt");
+//   } else if (result.state === "denied") {
+//     console.log("Denied");
+//   }
+//   // Don't do anything if the permission was denied.
+// });
